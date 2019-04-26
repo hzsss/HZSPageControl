@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hidesForSinglePage;
 @property (nonatomic, strong) UIColor *pageIndicatorTintColor;
 @property (nonatomic, strong) UIColor *currentPageIndicatorTintColor;
+@property (nonatomic, assign) CGFloat dotMaxWidth;
+@property (nonatomic, assign) CGFloat dotMinWidth;
 @end
 
 NS_ASSUME_NONNULL_END

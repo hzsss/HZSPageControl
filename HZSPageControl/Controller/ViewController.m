@@ -33,7 +33,7 @@ static const NSInteger pageCount = 5;
     
     self.collectionView.frame = CGRectMake((width - 320) * 0.5, (height - 180) * 0.5, 320, 180);
     
-    self.pageControl.frame = CGRectMake((width - 80) * 0.5, CGRectGetMaxY(self.collectionView.frame) - 16, 80, 6);
+    self.pageControl.frame = CGRectMake((width - 80) * 0.5, CGRectGetMaxY(self.collectionView.frame) - 16, 80, 10);
 }
 
 - (void)setupSubViews {
@@ -56,6 +56,8 @@ static const NSInteger pageCount = 5;
     self.pageControl.hidesForSinglePage = YES;
     self.pageControl.pageIndicatorTintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
     self.pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+    self.pageControl.dotMaxWidth = 20;
+    self.pageControl.dotMinWidth = 10;
     [self.view addSubview:self.pageControl];
 }
 

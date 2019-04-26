@@ -19,7 +19,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.cornerRadius = 3;
         self.layer.masksToBounds = YES;
     }
     return self;
@@ -28,6 +27,13 @@
 - (void)setSelected:(BOOL)selected {
     self.backgroundColor = selected ? self.currentPageIndicatorTintColor : self.pageIndicatorTintColor;
     _selected = selected;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGFloat height = self.bounds.size.height;
+    self.layer.cornerRadius = height * 0.5;
 }
 
 @end
@@ -42,8 +48,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.dots = [NSMutableArray array];
+        
+        // 提供默认值
         self.pageIndicatorTintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
         self.currentPageIndicatorTintColor = [UIColor whiteColor];
+        self.dotMaxWidth = 16;
+        self.dotMinWidth = 6;
     }
     return self;
 }
@@ -52,11 +62,11 @@
     [super layoutSubviews];
     
     CGFloat width = self.bounds.size.width;
-    CGFloat gap = (width - 6 * (self.numberOfPages - 1) - 16) / (self.numberOfPages - 1);
+    CGFloat gap = (width - self.dotMinWidth * (self.numberOfPages - 1) - self.dotMaxWidth) / (self.numberOfPages - 1);
     
     for (NSInteger i=0; i<self.numberOfPages; i++) {
         HZSPageDot *dot = (HZSPageDot *)self.dots[i];
-        CGFloat dotWidth = dot.selected ? 16 : 6;
+        CGFloat dotWidth = dot.selected ? self.dotMaxWidth : self.dotMinWidth;
         
         HZSPageDot *tmpDot = nil;
         CGFloat x = 0;
@@ -66,7 +76,7 @@
         }
         
         [UIView animateWithDuration:0.3 animations:^{
-            dot.frame = CGRectMake(x, 0, dotWidth, 6);
+            dot.frame = CGRectMake(x, 0, dotWidth, self.dotMinWidth);
         }];
     }
 }
